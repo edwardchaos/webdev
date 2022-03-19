@@ -9,10 +9,11 @@ const block_height = 20;
 
 const user_width = 100;
 const user_height = 20;
-const user_start = [230, 10];
-let user_position = user_start;
 
-let ball_position = [270, 40];
+// [x_px, y_px] bottom left
+let user_position = [grid_width/2 - user_width/2, 10];
+
+let ball_position = [270, 40]; // [x_px, y_px] bottom left
 const ball_circumference = 20; // px
 
 // BLOCK
@@ -21,42 +22,48 @@ const user_classlist = ['user', 'inside-grid'];
 const ball_classlist = ['ball', 'inside-grid'];
 
 class Block{
-    constructor(x, y){
-       this.bottomLeft = [x, y];
-       this.bottomRight = [x + block_width, y];
-       this.topLeft = [x, y + block_height]; 
-       this.topRight = [x + block_width, y + block_height]; 
+    /*
+    x,y denote the coordinates of the bottom left corner of the block
+    x px horizontal offset from the left of grid
+    y px vertical offset from the bottom of grid
+    */
+    constructor(x, y, width, height){
+       this.x = x;
+       this.y = y;
+       this.width = width;
+       this.height = height;
     }
 }
 
 const blocks = [
-    new Block(10, 270),
-    new Block(120, 270),
-    new Block(230, 270),
-    new Block(340, 270),
-    new Block(450, 270),
+    // TODO: create in for loop
+    new Block(10, 270, block_width, block_height),
+    new Block(120, 270, block_width, block_height),
+    new Block(230, 270, block_width, block_height),
+    new Block(340, 270, block_width, block_height),
+    new Block(450, 270, block_width, block_height),
 
-    new Block(10, 240),
-    new Block(120, 240),
-    new Block(230, 240),
-    new Block(340, 240),
-    new Block(450, 240),
+    new Block(10, 240, block_width, block_height),
+    new Block(120, 240, block_width, block_height),
+    new Block(230, 240, block_width, block_height),
+    new Block(340, 240, block_width, block_height),
+    new Block(450, 240, block_width, block_height),
 
-    new Block(10, 210),
-    new Block(120, 210),
-    new Block(230, 210),
-    new Block(340, 210),
-    new Block(450, 210),
+    new Block(10, 210, block_width, block_height),
+    new Block(120, 210, block_width, block_height),
+    new Block(230, 210, block_width, block_height),
+    new Block(340, 210, block_width, block_height),
+    new Block(450, 210, block_width, block_height),
 ]
 
 function addBlocksToGrid(blocks){
     for(let i = 0; i < blocks.length; i++){
         const block_div = document.createElement('div');
         block_div.classList.add(...block_classlist);
-        block_div.style.left = blocks[i].bottomLeft[0] + 'px';
-        block_div.style.bottom = blocks[i].bottomLeft[1] + 'px';
-        block_div.style.width = block_width + 'px';
-        block_div.style.height = block_height + 'px';
+        block_div.style.left = blocks[i].x + 'px';
+        block_div.style.bottom = blocks[i].y + 'px';
+        block_div.style.width = blocks[i].width + 'px';
+        block_div.style.height = blocks[i].height + 'px';
         grid.appendChild(block_div);
     }
 }
@@ -104,7 +111,6 @@ ball.style.left = ball_position[0] + 'px';
 ball.style.bottom = ball_position[1] + 'px';
 ball.style.width = ball_circumference + 'px';
 ball.style.height = ball_circumference + 'px';
-console.log(Math.round(ball_circumference / 2));
 ball.style.borderRadius = Math.round(ball_circumference / 2) + 'px';
 grid.appendChild(ball);
 
