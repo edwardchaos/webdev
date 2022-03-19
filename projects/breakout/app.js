@@ -4,7 +4,7 @@ const grid_height = 300;
 grid.style.width = grid_width + 'px';
 grid.style.height = grid_height + 'px';
 
-const num_block_rows = 3;
+const num_block_rows = 1;
 const num_block_columns = 5;
 const block_spacer_px = 10;
 const block_width = 100;
@@ -177,6 +177,7 @@ function mainLoop(){
     handleWallCollisions();
     handleBlockCollisions();
     handleUserCollision();
+    checkGameWon();
 }
 
 function handleWallCollisions(){
@@ -216,6 +217,13 @@ function handleBlockCollisions(){
 function handleUserCollision(){
     if(ballContactBlock(ball, user)){
         ball.setVerticalDirectionUp();
+    }
+}
+
+function checkGameWon(){
+    if(blocks.length === 0){
+        alert("And I would have gotten away with it too, if it weren't for you meddling kids!");
+        clearInterval(main_loop_timer);
     }
 }
 
