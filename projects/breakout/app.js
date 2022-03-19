@@ -82,12 +82,18 @@ addBlocksToGrid(blocks);
 
 // USER
 
-const user = document.createElement('div');
-user.classList.add(...user_classlist);
-user.style.width = user_width + 'px';
-user.style.height = user_height + 'px';
-user.style.left = user_position[0] + 'px';
-user.style.bottom = user_position[1] + 'px';
+function createUser(user_width, user_height, offset_from_left, offset_from_bottom){
+    const user = document.createElement('div');
+    user.classList.add(...user_classlist);
+    user.style.width = user_width + 'px';
+    user.style.height = user_height + 'px';
+    user.style.left = offset_from_left + 'px';
+    user.style.bottom = offset_from_bottom + 'px';
+
+    return user;
+}
+
+const user = createUser(user_width, user_height, user_position[0], user_position[1]);
 grid.appendChild(user);
 
 function moveUserLeft(){
@@ -115,13 +121,20 @@ function keyDownEventCallback(event){
 document.addEventListener("keydown", keyDownEventCallback)
 
 // BALL
-const ball = document.createElement('div');
-ball.classList.add(...ball_classlist);
-ball.style.left = ball_position[0] + 'px';
-ball.style.bottom = ball_position[1] + 'px';
-ball.style.width = ball_circumference + 'px';
-ball.style.height = ball_circumference + 'px';
-ball.style.borderRadius = Math.round(ball_circumference / 2) + 'px';
+
+function createBall(ball_circumference, offset_from_left, offset_from_bottom){
+    const ball = document.createElement('div');
+    ball.classList.add(...ball_classlist);
+    ball.style.left = offset_from_left + 'px';
+    ball.style.bottom = offset_from_bottom + 'px';
+    ball.style.width = ball_circumference + 'px';
+    ball.style.height = ball_circumference + 'px';
+    ball.style.borderRadius = Math.round(ball_circumference / 2) + 'px';
+
+    return ball
+}
+
+const ball = createBall(ball_circumference, ball_position[0], ball_position[1]);
 grid.appendChild(ball);
 
 // Move ball
