@@ -163,6 +163,9 @@ class Ball{
     setVerticalDirectionDown(){
         this.vertical_dy = -2;
     }
+    reverseVerticalDirection(){
+        this.vertical_dy = -this.vertical_dy;
+    }
 }
 
 const ball = new Ball(ball_circumference, ball_position[0], ball_position[1]);
@@ -202,7 +205,11 @@ function floorCollision(){
 
 function handleBlockCollisions(){
     for(let i = 0; i < blocks.length; ++i){
-        if(ballContactBlock(ball, blocks[i])) return;
+        if(ballContactBlock(ball, blocks[i])){
+            grid.removeChild(blocks[i].div);
+            blocks.splice(i, 1);
+            ball.reverseVerticalDirection();
+        }
     }
 }
 
@@ -211,17 +218,51 @@ function handleUserCollision(){
 }
 
 function ballContactBlock(ball, block){
-    ball.circumference;
-    ball.x;
-    ball.y;
+    let leftmost_min_x = undefined;
+    let leftmost_max_x = undefined;
+    let other_min_x = undefined;
+    let other_max_x = undefined;
 
-    block.width;
-    block.height;
-    block.x;
-    block.y;
-    
+    if(ball.x < block.x){
+        leftmost_min_x = ball.x;
+        leftmost_max_x = ball.x + ball.circumference;
+        other_min_x = block.x;
+        other_max_x = block.x + block.width;
+    }else{
+        leftmost_min_x = block.x;
+        leftmost_max_x = block.x + block.width;
+        other_min_x = ball.x;
+        other_max_x = ball.x + ball.circumference;
+        // TODO: edge case when they line up
+    }
 
-    return false;
+    if(leftmost_min_x != other_min_x){
+        // Not an edge case
+        if(leftmost_max_x < other_min_x) return false;
+        else{
+            let lowest_min_y;
+            let lowest_max_y;
+            let highest_min_y;
+            let highest_max_y;
+
+            if(ball.y < block.y){
+                lowest_min_y = ball.y;
+                lowest_max_y = ball.y + ball.circumference;
+                highest_min_y = block.y;
+                highest_max_y = block.y + block.height;
+            }else{
+                lowest_min_y = block.y;
+                lowest_max_y = block.y + block.height;
+                highest_min_y = ball.y;
+                highest_max_y = ball.y + ball.circumference;
+            }
+
+            if(lowest_max_y < highest_min_y) return false;
+            else return true;
+        }
+    }
+
+    console.log("edge case.");
 }
 
 function ggnore(){
