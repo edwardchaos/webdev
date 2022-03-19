@@ -122,21 +122,53 @@ document.addEventListener("keydown", keyDownEventCallback)
 
 // BALL
 
-function createBall(ball_circumference, offset_from_left, offset_from_bottom){
-    const ball = document.createElement('div');
-    ball.classList.add(...ball_classlist);
-    ball.style.left = offset_from_left + 'px';
-    ball.style.bottom = offset_from_bottom + 'px';
-    ball.style.width = ball_circumference + 'px';
-    ball.style.height = ball_circumference + 'px';
-    ball.style.borderRadius = Math.round(ball_circumference / 2) + 'px';
+class Ball{
+    constructor(circumference_px, offset_from_left, offset_from_bottom){
+        this.vertical_dy = 2;
+        this.horizontal_x = 2;
 
-    return ball
+        this.x = offset_from_left;
+        this.y = offset_from_bottom;
+
+        this.div = document.createElement('div');
+        this.div.classList.add(...ball_classlist);
+        this.div.style.left = this.x + 'px';
+        this.div.style.bottom = this.y + 'px';
+        this.div.style.width = ball_circumference + 'px';
+        this.div.style.height = ball_circumference + 'px';
+        this.div.style.borderRadius = Math.round(ball_circumference / 2) + 'px';
+    }
+
+    move(){
+        this.x += this.horizontal_x;
+        this.y += this.vertical_dy;
+        this.div.style.left = this.x + 'px';
+        this.div.style.bottom = this.y + 'px';
+    }
+
+    setHorizontalDirectionLeft(){
+        this.horizontal_x = -2;
+    }
+    setHorizontalDirectionRight(){
+        this.horizontal_x = 2;
+    }
+    setVerticalDirectionUp(){
+        this.vertical_dy = 2;
+    }
+    setVerticalDirectionDown(){
+        this.vertical_dy = -2;
+    }
 }
 
-const ball = createBall(ball_circumference, ball_position[0], ball_position[1]);
-grid.appendChild(ball);
+const ball = new Ball(ball_circumference, ball_position[0], ball_position[1]);
+grid.appendChild(ball.div);
 
-// Move ball
+function mainLoop(){
+    ball.move();
 
-// function moveBall();
+    // Check for collision with wall
+    // Check for collision with blocks
+    // Check for collision with user
+}
+
+setInterval(mainLoop, 30);
