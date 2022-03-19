@@ -58,7 +58,7 @@ class User extends Block{
 function createAllBlocks(num_rows, num_columns, spacer_px, block_width, block_height){
     const blocks = [];
 
-    for(let i = 0; i < num_rows; i++){
+    for(let i = 0; i < num_rows; ++i){
         let offset_from_grid_bottom = grid_height
                                     - (i+1) * spacer_px
                                     - (i+1) * block_height;
@@ -80,7 +80,7 @@ function createAllBlocks(num_rows, num_columns, spacer_px, block_width, block_he
 }
 
 function addBlocksToGrid(blocks){
-    for(let i = 0; i < blocks.length; i++){
+    for(let i = 0; i < blocks.length; ++i){
         grid.appendChild(blocks[i].div);
     }
 }
@@ -201,13 +201,27 @@ function floorCollision(){
 }
 
 function handleBlockCollisions(){
-    // for(let i = 0; i < block){
-
-    // }
+    for(let i = 0; i < blocks.length; ++i){
+        if(ballContactBlock(ball, blocks[i])) return;
+    }
 }
 
 function handleUserCollision(){
 
+}
+
+function ballContactBlock(ball, block){
+    ball.circumference;
+    ball.x;
+    ball.y;
+
+    block.width;
+    block.height;
+    block.x;
+    block.y;
+    
+
+    return false;
 }
 
 function ggnore(){
