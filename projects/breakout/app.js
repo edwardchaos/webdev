@@ -37,11 +37,14 @@ class Block{
        this.height = height;
 
        this.div = document.createElement('div');
-       this.div.classList.add(...block_classlist);
        this.div.style.left = this.x + 'px';
        this.div.style.bottom = this.y + 'px';
        this.div.style.width = this.width + 'px';
        this.div.style.height = this.height + 'px';
+    }
+    
+    addClassList(class_list){
+       this.div.classList.add(...class_list);
     }
 }
 
@@ -57,10 +60,12 @@ function createAllBlocks(num_rows, num_columns, spacer_px, block_width, block_he
             let offset_from_grid_left = (j+1) * spacer_px
                                       + j * block_width
 
-            blocks.push(new Block(offset_from_grid_left,
+            let block = new Block(offset_from_grid_left,
                                   offset_from_grid_bottom,
                                   block_width,
-                                  block_height));
+                                  block_height);
+            block.addClassList(block_classlist);
+            blocks.push(block);
         }
     }
 
