@@ -186,23 +186,19 @@ function handleWallCollisions(){
 }
 
 function rightWallCollision(){
-    if(ball.x >= grid_width - ball.circumference) return true;
-    return false;
+    return ball.x >= grid_width - ball.circumference
 }
 
 function leftWallCollision(){
-    if(ball.x <= 0) return true;
-    return false;
+    return ball.x <= 0;
 }
 
 function topWallCollision(){
-    if(ball.y >= grid_height - ball.circumference) return true;
-    return false;
+    return ball.y >= grid_height - ball.circumference;
 }
 
 function floorCollision(){
-    if(ball.y <= 0) return true;
-    return false;
+    return ball.y <= 0;
 }
 
 function handleBlockCollisions(){
