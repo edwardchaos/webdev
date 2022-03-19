@@ -1,22 +1,21 @@
 .grid{
-    position: absolute;
-    border: solid black 1px;
+    position: relative;
+    border: solid black 2px;
+    margin: auto;
+}
+
+.inside-grid{
+    position: absolute
 }
 
 .block{
-    position: absolute;
     background-color: blue;
 }
 
 .user{
-    position:absolute;
     background-color: teal;
 }
 
 .ball{
-    position:absolute;
-    width: 20px;
-    height: 20px;
-    border-radius: 10px;
     background-color: red;
 }
