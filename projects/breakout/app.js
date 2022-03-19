@@ -48,6 +48,13 @@ class Block{
     }
 }
 
+class User extends Block{
+    updateXPosition(new_x){
+        this.x = new_x;
+        this.div.style.left = this.x + 'px';
+    }
+}
+
 function createAllBlocks(num_rows, num_columns, spacer_px, block_width, block_height){
     const blocks = [];
 
@@ -88,32 +95,19 @@ addBlocksToGrid(blocks);
 
 // USER
 
-function createUser(user_width, user_height, offset_from_left, offset_from_bottom){
-    const user = document.createElement('div');
-    user.classList.add(...user_classlist);
-    user.style.width = user_width + 'px';
-    user.style.height = user_height + 'px';
-    user.style.left = offset_from_left + 'px';
-    user.style.bottom = offset_from_bottom + 'px';
-
-    return user;
-}
-
-const user = new Block(user_position[0],
-                       user_position[1],
-                       user_width,
-                       user_height);
+const user = new User(user_position[0],
+                      user_position[1],
+                      user_width,
+                      user_height);
 user.addClassList(user_classlist);
 grid.appendChild(user.div);
 
 function moveUserLeft(){
-    user_position[0] = Math.max(user_position[0]-10, 0)
-    user.style.left = user_position[0] + 'px';
+    user.updateXPosition(Math.max(user.x - 10, 0));
 }
 
 function moveUserRight(){
-    user_position[0] = Math.min(user_position[0]+10, grid_width - block_width)
-    user.style.left = user_position[0] + 'px';
+    user.updateXPosition(Math.min(user.x + 10, grid_width - block_width));
 }
 
 function keyDownEventCallback(event){
