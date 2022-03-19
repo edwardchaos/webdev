@@ -129,14 +129,15 @@ class Ball{
 
         this.x = offset_from_left;
         this.y = offset_from_bottom;
+        this.circumference = circumference_px;
 
         this.div = document.createElement('div');
         this.div.classList.add(...ball_classlist);
         this.div.style.left = this.x + 'px';
         this.div.style.bottom = this.y + 'px';
-        this.div.style.width = ball_circumference + 'px';
-        this.div.style.height = ball_circumference + 'px';
-        this.div.style.borderRadius = Math.round(ball_circumference / 2) + 'px';
+        this.div.style.width = this.circumference + 'px';
+        this.div.style.height = this.circumference + 'px';
+        this.div.style.borderRadius = Math.round(this.circumference / 2) + 'px';
     }
 
     move(){
@@ -167,8 +168,54 @@ function mainLoop(){
     ball.move();
 
     // Check for collision with wall
+    handleWallCollisions();
+
     // Check for collision with blocks
+    handleBlockCollisions();
+
     // Check for collision with user
+    handleUserCollision();
 }
 
-setInterval(mainLoop, 30);
+function handleWallCollisions(){
+    if(rightWallCollision()) ball.setHorizontalDirectionLeft();
+    else if(leftWallCollision()) ball.setHorizontalDirectionRight();
+
+    if(topWallCollision()) ball.setVerticalDirectionDown();
+    else if(floorCollision()) ggnore();
+}
+
+function rightWallCollision(){
+    if(ball.x >= grid_width - ball.circumference) return true;
+    return false;
+}
+
+function leftWallCollision(){
+    if(ball.x <= 0) return true;
+    return false;
+}
+
+function topWallCollision(){
+    if(ball.y >= grid_height - ball.circumference) return true;
+    return false;
+}
+
+function floorCollision(){
+    if(ball.y <= 0) return true;
+    return false;
+}
+
+function handleBlockCollisions(){
+
+}
+
+function handleUserCollision(){
+
+}
+
+function ggnore(){
+    alert("ggnore");
+    clearInterval(main_loop_timer);
+}
+
+main_loop_timer = setInterval(mainLoop, 30);
