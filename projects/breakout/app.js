@@ -4,6 +4,9 @@ const grid_height = 300;
 grid.style.width = grid_width + 'px';
 grid.style.height = grid_height + 'px';
 
+const num_block_rows = 3;
+const num_block_columns = 5;
+const block_spacer_px = 10;
 const block_width = 100;
 const block_height = 20;
 
@@ -35,26 +38,33 @@ class Block{
     }
 }
 
-const num_block_rows = 3;
-const num_block_columns = 5;
-const block_spacer_px = 10;
-const blocks = [];
+function createAllBlocks(num_rows, num_columns, spacer_px, block_width, block_height){
+    const blocks = [];
 
-for(let i = 0; i < num_block_rows; i++){
-    let offset_from_grid_bottom = grid_height
-                                - (i+1) * block_spacer_px
-                                - (i+1) * block_height;
+    for(let i = 0; i < num_block_rows; i++){
+        let offset_from_grid_bottom = grid_height
+                                    - (i+1) * block_spacer_px
+                                    - (i+1) * block_height;
 
-    for(let j = 0; j < num_block_columns; j++){
-        let offset_from_grid_left = (j+1) * block_spacer_px
-                                  + j * block_width
+        for(let j = 0; j < num_block_columns; j++){
+            let offset_from_grid_left = (j+1) * block_spacer_px
+                                    + j * block_width
 
-        blocks.push(new Block(offset_from_grid_left,
-                              offset_from_grid_bottom,
-                              block_width,
-                              block_height));
+            blocks.push(new Block(offset_from_grid_left,
+                                offset_from_grid_bottom,
+                                block_width,
+                                block_height));
+        }
     }
+
+    return blocks;
 }
+
+let blocks = createAllBlocks(num_block_rows,
+                             num_block_columns,
+                             block_spacer_px,
+                             block_width,
+                             block_height);
 
 function addBlocksToGrid(blocks){
     for(let i = 0; i < blocks.length; i++){
