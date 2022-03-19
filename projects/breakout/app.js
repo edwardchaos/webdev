@@ -214,7 +214,9 @@ function handleBlockCollisions(){
 }
 
 function handleUserCollision(){
-
+    if(ballContactBlock(ball, user)){
+        ball.setVerticalDirectionUp();
+    }
 }
 
 function ballContactBlock(ball, block){
@@ -270,4 +272,4 @@ function ggnore(){
     clearInterval(main_loop_timer);
 }
 
-main_loop_timer = setInterval(mainLoop, 30);
+main_loop_timer = setInterval(mainLoop, 10);
