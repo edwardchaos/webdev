@@ -99,8 +99,12 @@ function createUser(user_width, user_height, offset_from_left, offset_from_botto
     return user;
 }
 
-const user = createUser(user_width, user_height, user_position[0], user_position[1]);
-grid.appendChild(user);
+const user = new Block(user_position[0],
+                       user_position[1],
+                       user_width,
+                       user_height);
+user.addClassList(user_classlist);
+grid.appendChild(user.div);
 
 function moveUserLeft(){
     user_position[0] = Math.max(user_position[0]-10, 0)
