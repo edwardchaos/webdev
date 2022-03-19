@@ -4,10 +4,10 @@ const grid_height = 300;
 grid.style.width = grid_width + 'px';
 grid.style.height = grid_height + 'px';
 
-const num_block_rows = 1;
-const num_block_columns = 5;
+const num_block_rows = 5;
+const num_block_columns = 18;
 const block_spacer_px = 10;
-const block_width = 100;
+const block_width = 20;
 const block_height = 20;
 
 const user_width = 100;
@@ -107,7 +107,7 @@ function moveUserLeft(){
 }
 
 function moveUserRight(){
-    user.updateXPosition(Math.min(user.x + 10, grid_width - block_width));
+    user.updateXPosition(Math.min(user.x + 10, grid_width - user_width));
 }
 
 function keyDownEventCallback(event){
@@ -223,7 +223,7 @@ function handleUserCollision(){
 function checkGameWon(){
     if(blocks.length === 0){
         alert("And I would have gotten away with it too, if it weren't for you meddling kids!");
-        clearInterval(main_loop_timer);
+        cleanUp();
     }
 }
 
@@ -277,7 +277,12 @@ function ballContactBlock(ball, block){
 
 function ggnore(){
     alert("ggnore");
-    clearInterval(main_loop_timer);
+    cleanUp();
 }
 
 main_loop_timer = setInterval(mainLoop, 10);
+
+function cleanUp(){
+    clearInterval(main_loop_timer);
+    document.removeEventListener("keydown", keyDownEventCallback);
+}
