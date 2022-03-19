@@ -35,29 +35,42 @@ class Block{
        this.y = y;
        this.width = width;
        this.height = height;
+
+       this.div = document.createElement('div');
+       this.div.classList.add(...block_classlist);
+       this.div.style.left = this.x + 'px';
+       this.div.style.bottom = this.y + 'px';
+       this.div.style.width = this.width + 'px';
+       this.div.style.height = this.height + 'px';
     }
 }
 
 function createAllBlocks(num_rows, num_columns, spacer_px, block_width, block_height){
     const blocks = [];
 
-    for(let i = 0; i < num_block_rows; i++){
+    for(let i = 0; i < num_rows; i++){
         let offset_from_grid_bottom = grid_height
-                                    - (i+1) * block_spacer_px
+                                    - (i+1) * spacer_px
                                     - (i+1) * block_height;
 
-        for(let j = 0; j < num_block_columns; j++){
-            let offset_from_grid_left = (j+1) * block_spacer_px
-                                    + j * block_width
+        for(let j = 0; j < num_columns; j++){
+            let offset_from_grid_left = (j+1) * spacer_px
+                                      + j * block_width
 
             blocks.push(new Block(offset_from_grid_left,
-                                offset_from_grid_bottom,
-                                block_width,
-                                block_height));
+                                  offset_from_grid_bottom,
+                                  block_width,
+                                  block_height));
         }
     }
 
     return blocks;
+}
+
+function addBlocksToGrid(blocks){
+    for(let i = 0; i < blocks.length; i++){
+        grid.appendChild(blocks[i].div);
+    }
 }
 
 let blocks = createAllBlocks(num_block_rows,
@@ -65,18 +78,6 @@ let blocks = createAllBlocks(num_block_rows,
                              block_spacer_px,
                              block_width,
                              block_height);
-
-function addBlocksToGrid(blocks){
-    for(let i = 0; i < blocks.length; i++){
-        const block_div = document.createElement('div');
-        block_div.classList.add(...block_classlist);
-        block_div.style.left = blocks[i].x + 'px';
-        block_div.style.bottom = blocks[i].y + 'px';
-        block_div.style.width = blocks[i].width + 'px';
-        block_div.style.height = blocks[i].height + 'px';
-        grid.appendChild(block_div);
-    }
-}
 
 addBlocksToGrid(blocks);
 
@@ -167,13 +168,8 @@ grid.appendChild(ball.div);
 function mainLoop(){
     ball.move();
 
-    // Check for collision with wall
     handleWallCollisions();
-
-    // Check for collision with blocks
     handleBlockCollisions();
-
-    // Check for collision with user
     handleUserCollision();
 }
 
@@ -202,7 +198,9 @@ function floorCollision(){
 }
 
 function handleBlockCollisions(){
+    // for(let i = 0; i < block){
 
+    // }
 }
 
 function handleUserCollision(){
