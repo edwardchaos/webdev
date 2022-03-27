@@ -148,9 +148,10 @@ function moveCarRight(car){
 }
 
 function lose(){
-    console.log(squares[getGridIdx()]);
-    if(squares[getGridIdx()].classList.contains("c1")){
-        resultSpan.textContent = "Squashed by car bruh";
+    if(squares[getGridIdx()].classList.contains("c1")
+    || squares[getGridIdx()].classList.contains("l4")
+    || squares[getGridIdx()].classList.contains("l5")){
+        resultSpan.textContent = "lose";
         clearInterval(logLeftInterval);
         document.removeEventListener("keyup", moveFrog);
     }
