@@ -6,6 +6,8 @@ let startPauseButton = document.querySelector("#start-pause-button");
 const squares = document.querySelectorAll(".grid div");
 const GRID_HEIGHT=9;
 const GRID_WIDTH=9;
+const logsLeft = document.querySelectorAll(".log-left");
+const logsRight = document.querySelectorAll(".log-right");
 
 let currentPosition = {x: 8, y: 4};
 
@@ -48,3 +50,76 @@ function drawFrog(){
 }
 
 document.addEventListener("keyup", moveFrog);
+
+function autoMoveLogs(){
+    logsLeft.forEach(log => {moveLogLeft(log)});
+    logsRight.forEach(log => {moveLogRight(log)});
+}
+
+function moveLogLeft(log){
+    switch(true){
+        case log.classList.contains("l1"):
+            log.classList.remove("l1");
+            log.classList.add("l2");
+            break;
+        case log.classList.contains("l2"):
+            log.classList.remove("l2");
+            log.classList.add("l3");
+            break;
+        case log.classList.contains("l3"):
+            log.classList.remove("l3");
+            log.classList.add("l4");
+            break;
+        case log.classList.contains("l4"):
+            log.classList.remove("l4");
+            log.classList.add("l5");
+            break;
+        case log.classList.contains("l5"):
+            log.classList.remove("l5");
+            log.classList.add("l1");
+            break;
+    }
+}
+
+function moveLogRight(log){
+    switch(true){
+        case log.classList.contains("l1"):
+            log.classList.remove("l1");
+            log.classList.add("l5");
+            break;
+        case log.classList.contains("l2"):
+            log.classList.remove("l2");
+            log.classList.add("l1");
+            break;
+        case log.classList.contains("l3"):
+            log.classList.remove("l3");
+            log.classList.add("l2");
+            break;
+        case log.classList.contains("l4"):
+            log.classList.remove("l4");
+            log.classList.add("l3");
+            break;
+        case log.classList.contains("l5"):
+            log.classList.remove("l5");
+            log.classList.add("l4");
+            break;
+    }
+}
+
+let logLeftInterval = setInterval(autoMoveLogs, 1000);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
