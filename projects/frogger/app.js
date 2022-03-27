@@ -12,6 +12,7 @@ const carsLeft = document.querySelectorAll(".car-left");
 const carsRight = document.querySelectorAll(".car-right");
 
 let currentPosition = {x: 8, y: 4};
+let logLeftInterval;
 
 function positionToGridIdx({x, y} = {}){
     if(x===undefined || y===undefined) return -1;
@@ -41,6 +42,7 @@ function moveFrog(event){
     }
 
     drawFrog();
+    lose();
 }
 
 function undrawFrog(){
@@ -58,6 +60,7 @@ function autoMoveLogs(){
     logsRight.forEach(log => {moveLogRight(log)});
     carsLeft.forEach(car => {moveCarLeft(car)});
     carsRight.forEach(car => {moveCarRight(car)});
+    lose();
 }
 
 function moveLogLeft(log){
@@ -144,20 +147,13 @@ function moveCarRight(car){
     }
 }
 
-let logLeftInterval = setInterval(autoMoveLogs, 1000);
+function lose(){
+    console.log(squares[getGridIdx()]);
+    if(squares[getGridIdx()].classList.contains("c1")){
+        resultSpan.textContent = "Squashed by car bruh";
+        clearInterval(logLeftInterval);
+        document.removeEventListener("keyup", moveFrog);
+    }
+}
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+logLeftInterval = setInterval(autoMoveLogs, 1000);
