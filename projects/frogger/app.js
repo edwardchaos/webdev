@@ -2,7 +2,6 @@
 
 let timeLeftSpan = document.querySelector("#time-left");
 let resultSpan = document.querySelector("#result");
-let startPauseButton = document.querySelector("#start-pause-button");
 const squares = document.querySelectorAll(".grid div");
 const GRID_HEIGHT=9;
 const GRID_WIDTH=9;
@@ -13,6 +12,7 @@ const carsRight = document.querySelectorAll(".car-right");
 
 let currentPosition = {x: 8, y: 4};
 let logLeftInterval;
+let currentTime = 20;
 
 function positionToGridIdx({x, y} = {}){
     if(x===undefined || y===undefined) return -1;
@@ -43,6 +43,7 @@ function moveFrog(event){
 
     drawFrog();
     lose();
+    win();
 }
 
 function undrawFrog(){
@@ -53,9 +54,9 @@ function drawFrog(){
     squares[getGridIdx()].classList.add("frog");
 }
 
-document.addEventListener("keyup", moveFrog);
-
 function autoMoveLogs(){
+    currentTime--;
+    timeLeftSpan.textContent = currentTime;
     logsLeft.forEach(log => {moveLogLeft(log)});
     logsRight.forEach(log => {moveLogRight(log)});
     carsLeft.forEach(car => {moveCarLeft(car)});
@@ -150,11 +151,21 @@ function moveCarRight(car){
 function lose(){
     if(squares[getGridIdx()].classList.contains("c1")
     || squares[getGridIdx()].classList.contains("l4")
-    || squares[getGridIdx()].classList.contains("l5")){
+    || squares[getGridIdx()].classList.contains("l5")
+    || currentTime === 0){
         resultSpan.textContent = "lose";
         clearInterval(logLeftInterval);
         document.removeEventListener("keyup", moveFrog);
     }
 }
 
-logLeftInterval = setInterval(autoMoveLogs, 1000);
+function win(){
+    if(squares[getGridIdx()].classList.contains("ending-block")){
+        resultSpan.textContent = "win";
+        clearInterval(logLeftInterval);
+        document.removeEventListener("keyup", moveFrog);
+    }
+}
+
+document.addEventListener("keyup", moveFrog);
+logLeftInterval = setInterval(autoMoveLogs, 500);
