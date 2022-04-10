@@ -21,17 +21,40 @@ export default class Grid{
             }
         )
     }
+
+    get #emptyCells(){
+        return this.#cells.filter(cell => cell.getTile() == null);
+    }
+
+    randomEmptyCell(){
+        const randomIndex = Math.floor(Math.random() * this.#emptyCells.length);
+
+        return this.#emptyCells[randomIndex];
+    }
 }
 
 class Cell{
     #element
     #row
-    #column
+    #col
+    #tile
 
-    constructor(cellElement, row, column){
+    constructor(cellElement, row, col){
         this.#element = cellElement;
         this.#row = row;
-        this.#column = column;
+        this.#col = col;
+    }
+
+    getTile(){
+        return this.#tile;
+    }
+
+    setTile(value){
+        this.#tile = value;
+        if(value == null) return;
+
+        this.#tile.row = this.#row;
+        this.#tile.col = this.#col;
     }
 }
 
