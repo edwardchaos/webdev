@@ -23,7 +23,7 @@ export default class Grid{
     }
 
     get #emptyCells(){
-        return this.#cells.filter(cell => cell.getTile() == null);
+        return this.#cells.filter(cell => cell.tile == null);
     }
 
     randomEmptyCell(){
@@ -45,11 +45,11 @@ class Cell{
         this.#col = col;
     }
 
-    getTile(){
+    get tile(){
         return this.#tile;
     }
 
-    setTile(value){
+    set tile(value){
         this.#tile = value;
         if(value == null) return;
 

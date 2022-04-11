@@ -40,8 +40,8 @@ body{
     height: var(--cell-size);
     border-radius: 1vmin;
 
-    top: calc( var(--y) * (var(--cell-gap) + var(--cell-size)) + var(--cell-gap));
-    left: calc( var(--x) * (var(--cell-gap) + var(--cell-size)) + var(--cell-gap));
+    top: calc( var(--row) * (var(--cell-gap) + var(--cell-size)) + var(--cell-gap));
+    left: calc( var(--col) * (var(--cell-gap) + var(--cell-size)) + var(--cell-gap));
 
     font-weight: bold;
 
