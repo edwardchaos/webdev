@@ -23,14 +23,14 @@ export default class Grid{
     }
 
     get #emptyCells(){
-        console.log("emptyCells called");
         return this.#cells.filter(cell => cell.tile == null);
     }
 
     randomEmptyCell(){
-        const randomIndex = Math.floor(Math.random() * this.#emptyCells.length);
+        const currentlyEmptyCells = this.#emptyCells;
+        const randomIndex = Math.floor(Math.random() * currentlyEmptyCells.length);
 
-        return this.#emptyCells[randomIndex];
+        return currentlyEmptyCells[randomIndex];
     }
 }
 
