@@ -23,6 +23,7 @@ export default class Grid{
     }
 
     get #emptyCells(){
+        console.log("emptyCells called");
         return this.#cells.filter(cell => cell.tile == null);
     }
 
