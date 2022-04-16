@@ -66,8 +66,8 @@ function createCellElements(gridElement){
         for(let j = 0; j < GRID_SIZE; ++j){
             let cell = document.createElement("div");
             cell.classList.add("cell");
-            cells.push(cell);
-            gridElement.append(cell);
+            cells.push(cell); // List of cell dom elements that are returned
+            gridElement.append(cell); // Adding the cell elements to the grid board div
         }
     }
     return cells;
