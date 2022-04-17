@@ -12,6 +12,10 @@ export default class Tile{
         this.value = value;
     }
 
+    get value(){
+        return this.#value;
+    }
+
     set value(value){
         this.#value = value;
         this.#element.textContent = value;

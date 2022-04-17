@@ -8,11 +8,20 @@ export default class Cell{
     #row
     #col
     #tile
+    #merge_tile
 
     constructor(cell_element, row, col){
         this.#element = cell_element;
         this.#row = row;
         this.#col = col;
+    }
+    
+    get row(){
+        return this.#row;
+    }
+
+    get col(){
+        return this.#col;
     }
 
     get tile(){
@@ -25,6 +34,25 @@ export default class Cell{
 
         this.#tile.row = this.#row;
         this.#tile.col = this.#col;
+    }
+
+    get merge_tile(){
+        return this.#merge_tile;
+    }
+
+    set merge_tile(tile){
+        this.#merge_tile = tile;
+        if(tile == null) return;
+
+        this.#merge_tile.row = this.#row;
+        this.#merge_tile.col = this.#col;
+    }
+
+    canAccept(tile){
+        if(this.#tile == null) return true;
+        if(this.#tile.value === tile.value && this.merge_tile == null) return true;
+
+        return false;
     }
 
     empty(){

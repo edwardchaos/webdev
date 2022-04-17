@@ -31,6 +31,27 @@ export default class Grid{
 
         return currentlyEmptyCells[randomIndex];
     }
+
+    get cellsByColumn(){
+        return this.#cell_objects.reduce(
+
+            (cell_columns, cell) => {
+                if(cell_columns[cell.col] == null) cell_columns[cell.col] = [];
+                cell_columns[cell.col].push(cell);
+                return cell_columns;
+            },[]);
+    }
+
+    get cellsByRow(){
+        return this.#cell_objects.reduce(
+
+            (cell_rows, cell) => {
+                if(cell_rows[cell.row] == null) cell_rows[cell.row] = [];
+                cell_rows[cell.row][cell.col] = cell;
+                return cell_rows;
+            }, []);
+
+    }
 }
 
 function createCellElements(grid_size){
