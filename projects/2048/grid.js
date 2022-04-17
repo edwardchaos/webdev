@@ -17,15 +17,15 @@ export default class Grid{
         let cell_elements = createCellElements(GRID_SIZE);
         cell_elements.forEach(cell_element => grid_element.append(cell_element));
 
-        this.#cell_objects = createCellObjectsFromElements(cell_elements);
+        this.#cell_objects = createCellObjectsFromElements(cell_elements, GRID_SIZE);
 
     }
 
     get #emptyCells(){
-        return this.#cell_objects.filter(cell => cell.tile == null);
+        return this.#cell_objects.filter(cell => cell.empty());
     }
 
-    randomEmptyCell(){
+    getRandomEmptyCell(){
         const currentlyEmptyCells = this.#emptyCells;
         const randomIndex = Math.floor(Math.random() * currentlyEmptyCells.length);
 
@@ -46,11 +46,11 @@ function createCellElements(grid_size){
     return cells;
 }
 
-function createCellObjectsFromElements(cell_elements){
+function createCellObjectsFromElements(cell_elements, grid_size){
     const cell_objects = cell_elements.map(
         (cell_element, idx) => {
-            let row = Math.floor(idx / GRID_SIZE);
-            let col = idx % GRID_SIZE;
+            let row = Math.floor(idx / grid_size);
+            let col = idx % grid_size;
             return new Cell(cell_element, row, col);
         }
     )

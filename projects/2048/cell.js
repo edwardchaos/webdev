@@ -9,8 +9,8 @@ export default class Cell{
     #col
     #tile
 
-    constructor(cellElement, row, col){
-        this.#element = cellElement;
+    constructor(cell_element, row, col){
+        this.#element = cell_element;
         this.#row = row;
         this.#col = col;
     }
@@ -19,11 +19,15 @@ export default class Cell{
         return this.#tile;
     }
 
-    set tile(value){
-        this.#tile = value;
-        if(value == null) return;
+    set tile(tile){
+        this.#tile = tile;
+        if(tile == null) return;
 
         this.#tile.row = this.#row;
         this.#tile.col = this.#col;
+    }
+
+    empty(){
+        return this.#tile == null;
     }
 }

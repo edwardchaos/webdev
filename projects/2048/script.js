@@ -3,9 +3,9 @@
 import Grid from "./grid.js"
 import Tile from "./tile.js"
 
-const gameBoard = document.querySelector("#game-board");
+const game_board = document.querySelector("#game-board");
 
-const grid = new Grid(gameBoard);
+const grid = new Grid(game_board);
 
-grid.randomEmptyCell().tile = new Tile(gameBoard);
-grid.randomEmptyCell().tile = new Tile(gameBoard);
+grid.getRandomEmptyCell().tile = new Tile(game_board);
+grid.getRandomEmptyCell().tile = new Tile(game_board);

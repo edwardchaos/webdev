@@ -6,20 +6,17 @@ export default class Tile{
     #col
     #value
 
-    constructor(tileContainer, value=Math.random() > 0.5 ? 2 : 4){
-        this.#element = document.createElement("div");
-        this.#element.classList.add("tile");
-        tileContainer.append(this.#element);
+    constructor(grid_element, value=Math.random() > 0.5 ? 2 : 4){
+        this.#element = createTileElement();
+        grid_element.append(this.#element);
         this.value = value;
     }
 
-    set value(v){
-        this.#value = v;
-        this.#element.textContent = v;
-        const power = Math.log2(v);
-        const backgroundLightness = 100 - power*9;
-        this.#element.style.setProperty("--background-lightness", `${backgroundLightness}%`);
-        this.#element.style.setProperty("--text-lightness", `${backgroundLightness < 50 ? 90 : 10}%`);
+    set value(value){
+        this.#value = value;
+        this.#element.textContent = value;
+
+        this.setTileElementColour(value);
     }
 
     set row(row){
@@ -31,4 +28,17 @@ export default class Tile{
         this.#col = col;
         this.#element.style.setProperty("--col", col);
     }
+
+    setTileElementColour(value){
+        const power_of_2 = Math.log2(value);
+        const background_lightness = 100 - power_of_2*9;
+        this.#element.style.setProperty("--background-lightness", `${background_lightness}%`);
+        this.#element.style.setProperty("--text-lightness", `${background_lightness < 50 ? 90 : 10}%`);
+    }
+}
+
+function createTileElement(){
+    let element = document.createElement("div");
+    element.classList.add("tile");
+    return element;
 }
