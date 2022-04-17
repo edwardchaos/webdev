@@ -1,20 +1,21 @@
 "use strict"
 
+import Cell from "./cell.js"
+import { CELL_SIZE, CELL_GAP } from "./cell.js";
+
 const GRID_SIZE = 4;
-const CELL_SIZE = 20;
-const CELL_GAP = 2;
 
 export default class Grid{
     #cell_objects
 
-    constructor(gridElement){
+    constructor(grid_element){
 
-        gridElement.style.setProperty("--grid-size", GRID_SIZE);
-        gridElement.style.setProperty("--cell-size", `${CELL_SIZE}vmin`);
-        gridElement.style.setProperty("--cell-gap", `${CELL_GAP}vmin`);
+        grid_element.style.setProperty("--grid-size", GRID_SIZE);
+        grid_element.style.setProperty("--cell-size", `${CELL_SIZE}vmin`);
+        grid_element.style.setProperty("--cell-gap", `${CELL_GAP}vmin`);
 
         let cell_elements = createCellElements(GRID_SIZE);
-        cell_elements.forEach(cell_element => gridElement.append(cell_element));
+        cell_elements.forEach(cell_element => grid_element.append(cell_element));
 
         this.#cell_objects = createCellObjectsFromElements(cell_elements);
 
@@ -29,31 +30,6 @@ export default class Grid{
         const randomIndex = Math.floor(Math.random() * currentlyEmptyCells.length);
 
         return currentlyEmptyCells[randomIndex];
-    }
-}
-
-class Cell{
-    #element
-    #row
-    #col
-    #tile
-
-    constructor(cellElement, row, col){
-        this.#element = cellElement;
-        this.#row = row;
-        this.#col = col;
-    }
-
-    get tile(){
-        return this.#tile;
-    }
-
-    set tile(value){
-        this.#tile = value;
-        if(value == null) return;
-
-        this.#tile.row = this.#row;
-        this.#tile.col = this.#col;
     }
 }
 
