@@ -19,7 +19,6 @@ body{
     grid-template-rows: repeat(var(--grid-size), var(--cell-size));
     background-color: #CCC;
     gap: var(--cell-gap);
-    border: 1vmin;
     padding: var(--cell-gap);
     position:relative;
     border-radius: 1vmin;
@@ -35,7 +34,6 @@ body{
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: red;
     width: var(--cell-size);
     height: var(--cell-size);
     border-radius: 1vmin;

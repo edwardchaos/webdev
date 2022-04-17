@@ -5,7 +5,7 @@ const CELL_SIZE = 20;
 const CELL_GAP = 2;
 
 export default class Grid{
-    #cells
+    #cell_objects
 
     constructor(gridElement){
 
@@ -13,17 +13,15 @@ export default class Grid{
         gridElement.style.setProperty("--cell-size", `${CELL_SIZE}vmin`);
         gridElement.style.setProperty("--cell-gap", `${CELL_GAP}vmin`);
 
-        this.#cells = createCellElements(gridElement).map(
-            (cell, idx) => {
-                let col = idx % GRID_SIZE;
-                let row = Math.floor(idx / GRID_SIZE);
-                return new Cell(cell, row, col);
-            }
-        )
+        let cell_elements = createCellElements(GRID_SIZE);
+        cell_elements.forEach(cell_element => gridElement.append(cell_element));
+
+        this.#cell_objects = createCellObjectsFromElements(cell_elements);
+
     }
 
     get #emptyCells(){
-        return this.#cells.filter(cell => cell.tile == null);
+        return this.#cell_objects.filter(cell => cell.tile == null);
     }
 
     randomEmptyCell(){
@@ -59,16 +57,27 @@ class Cell{
     }
 }
 
-function createCellElements(gridElement){
+function createCellElements(grid_size){
     const cells = [];
 
-    for(let i = 0; i < GRID_SIZE; ++i){
-        for(let j = 0; j < GRID_SIZE; ++j){
+    for(let i = 0; i < grid_size; ++i){
+        for(let j = 0; j < grid_size; ++j){
             let cell = document.createElement("div");
             cell.classList.add("cell");
-            cells.push(cell); // List of cell dom elements that are returned
-            gridElement.append(cell); // Adding the cell elements to the grid board div
+            cells.push(cell);
         }
     }
     return cells;
+}
+
+function createCellObjectsFromElements(cell_elements){
+    const cell_objects = cell_elements.map(
+        (cell_element, idx) => {
+            let row = Math.floor(idx / GRID_SIZE);
+            let col = idx % GRID_SIZE;
+            return new Cell(cell_element, row, col);
+        }
+    )
+
+    return cell_objects;
 }
