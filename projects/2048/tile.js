@@ -44,9 +44,11 @@ export default class Tile{
         this.#element.remove();
     }
 
-    waitForTransition(){
+    waitForTransition(animation = false){
         return new Promise(resolve => {
-            this.#element.addEventListener("transitionend", resolve, {once: true});
+            this.#element.addEventListener(
+                animation ? "animationend" : "transitionend",
+                resolve, {once: true});
         })
     }
 }

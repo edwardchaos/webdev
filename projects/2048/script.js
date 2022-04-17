@@ -53,9 +53,17 @@ async function keyPressed(event){
 
     // Ohter stuff
     grid.cells.forEach(cell => cell.mergeTiles());
-    grid.getRandomEmptyCell().tile = new Tile(game_board);
 
-    setupInput();
+    const new_tile = new Tile(game_board);
+    grid.getRandomEmptyCell().tile = new_tile;
+
+    if(!canMoveUp() && !canMoveDown() && !canMoveRight() && !canMoveLeft()){
+        new_tile.waitForTransition(true).then(()=>{
+            alert("You lose");
+        });
+    }else{
+        setupInput();
+    }
 }
 
 function canMoveUp(){
