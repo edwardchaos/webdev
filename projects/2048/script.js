@@ -36,7 +36,7 @@ function keyPressed(event){
     }
 
     // Ohter stuff
-    grid.getRandomEmptyCell().tile = new Tile(game_board);
+    grid.cells.forEach(cell => cell.mergeTiles());
 
     setupInput();
 }
@@ -65,7 +65,7 @@ function slideTiles(cells){
             let last_valid_cell;
             for(let j = i-1; j >= 0 ; --j){
                 const move_to_cell = group[j];
-                if(!move_to_cell.canAccept(cell)) break;
+                if(!move_to_cell.canAccept(cell.tile)) break;
                 last_valid_cell = move_to_cell;
             }
             if(last_valid_cell == null) continue;

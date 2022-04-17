@@ -58,4 +58,13 @@ export default class Cell{
     empty(){
         return this.#tile == null;
     }
+
+    mergeTiles(){
+        if(this.#tile == null) return;
+        if(this.#merge_tile == null) return;
+
+        this.#tile.value += this.#merge_tile.value;
+        this.#merge_tile.remove();
+        this.#merge_tile = null;
+    }
 }

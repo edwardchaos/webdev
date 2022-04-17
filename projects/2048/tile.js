@@ -39,6 +39,10 @@ export default class Tile{
         this.#element.style.setProperty("--background-lightness", `${background_lightness}%`);
         this.#element.style.setProperty("--text-lightness", `${background_lightness < 50 ? 90 : 10}%`);
     }
+
+    remove(){
+        this.#element.remove();
+    }
 }
 
 function createTileElement(){

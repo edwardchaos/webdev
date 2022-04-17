@@ -25,6 +25,10 @@ export default class Grid{
         return this.#cell_objects.filter(cell => cell.empty());
     }
 
+    get cells(){
+        return this.#cell_objects;
+    }
+
     getRandomEmptyCell(){
         const currentlyEmptyCells = this.#emptyCells;
         const randomIndex = Math.floor(Math.random() * currentlyEmptyCells.length);
